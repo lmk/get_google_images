@@ -1,10 +1,17 @@
+#-*- coding: utf-8 -*-
 import urllib2
 import os
 from bs4 import BeautifulSoup
-import sys, json
+import json
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 DIR= "./Pictures/"
-query= "korea actor face"
+
+query = "안구정화"
+query= str(unicode(query))
 query=  '+'.join(query.split())
 url="https://www.google.co.in/search?q="+query+"&source=lnms&tbm=isch"
 header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36"
@@ -24,8 +31,7 @@ for i , (img , Type) in enumerate( ActualImages):
         raw_img = urllib2.urlopen(req).read()
         if not os.path.exists(DIR):
             os.mkdir(DIR)
-        cntr = len([i for i in os.listdir(DIR) if query in i]) + 1
-        print cntr
+        cntr = i + 1
         if len(Type)==0:
             f = open(DIR + query + "_"+ str(cntr)+".jpg", 'wb')
         else:
