@@ -18,7 +18,7 @@ header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KH
 }
 req= urllib2.Request(url,headers=header)
 soup= urllib2.urlopen(req)
-soup= BeautifulSoup(soup)
+soup= BeautifulSoup(soup, "lxml")
 
 ActualImages=[]# contains the link for Large original images, type of  image
 for a in soup.find_all("div",{"class":"rg_meta"}):
@@ -32,6 +32,7 @@ for i , (img , Type) in enumerate( ActualImages):
         if not os.path.exists(DIR):
             os.mkdir(DIR)
         cntr = i + 1
+        print str(cntr)
         if len(Type)==0:
             f = open(DIR + query + "_"+ str(cntr)+".jpg", 'wb')
         else:
@@ -40,4 +41,4 @@ for i , (img , Type) in enumerate( ActualImages):
         f.close()
     except Exception as e:
         print "could not load : "+img
-        print e
+        #print e
